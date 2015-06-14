@@ -10,32 +10,16 @@ body {
 	margin: 0.75rem;
 }
 
-.tabs-container {
+.services-container {
 	width: 100%;
 }
 
-.tabs {
+.services {
 	padding: 0;
 	margin: 0;
 	border-bottom: 1px solid rgba(0,0,0,0.25);
 	display: inline-block;
 	white-space: nowrap;
-}
-
-.tabs li {
-	list-style: none;
-	display: inline-block;
-	padding: 1rem;
-	cursor: pointer;
-}
-
-.tabs li:hover {
-	background-color: rgba(0,0,0,0.25);
-}
-
-.active-tab {
-	background-color: rgba(0,0,0,0.125);
-	font-weight: 800;
 }
 
 .region-list:not(.active-list) {
@@ -55,7 +39,11 @@ body {
 	cursor: pointer;
 }
 
-.region-list li:hover {
+#subs {
+	cursor: default;
+}
+
+.region-list li:not(#subs):hover {
 	background-color: rgba(0,0,0,0.25);
 }
 

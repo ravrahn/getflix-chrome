@@ -29,42 +29,106 @@ function generateTabs(regions) {
         }
     });
 
-    // we're gonna set this up later, inside the netflix tab
-    delete services["netflix-subs"];
+    var netflixSubs = services['netflix-subs'];
+    netflixSubs.code = 'netflix-subs';
 
-    // for every service, add a dropdown option
+    // we're gonna set this up later, inside the netflix tab
+    delete services['netflix-subs'];
+
+    // sort services by order:
+    // load them into an array
+    var servicesArr = [];
     for (var code in services) {
-        var service = services[code];
-        console.log(service);
+        services[code].code = code;
+        servicesArr.push(services[code]);
     }
+    services = servicesArr;
+    // and then actually sort
+    services.sort(function(a, b) {
+        return a.order - b.order;
+    });
+
+    // generate the html
+    var tabs = '<div class="services-container"><select class="services" name="services">';
+    // for every service, add a dropdown option
+    for (var i = 0; i < services.length; i++) {
+        var service = services[i];
+        tabs += '<option value="' + service.code + '">' + service.name + '</option>';
+    }
+    tabs += '</select></div>\n<div class="content-wrapper">';
     // for every region in every service, add a list option w/ flag
-    for (var code in services) {
-        var service = services[code];
+    for (var i = 0; i < services.length; i++) {
+        var service = services[i];
         var regions = service.regions;
-        console.log(service.name);
-        for (var regionCode in regions) {
-            var region = regions[regionCode];
+
+        tabs += '<ul id="' + service.code + '" class="region-list f16" role="option">';
+
+        for (var code in regions) {
+            var region = regions[code];
             // get the country name from the list in countries.js
             // because lots of web requests would be awful
-            region.country = countries[regionCode];
-            if (region.country == undefined) {
+            region.country = countries[code];
+            if (region.country === undefined) {
                 region.country = "Turn Off";
             }
-            console.log(region.country);
+            tabs += '<li id="' + code + '"><div class="flag ' + code + '"></div>' + region.country + '</li>';
         }
-        console.log("");
+        // add the subtitle switch
+        if (service.code === 'netflix') {
+            tabs += '<li id="subs"><div style="float: left; padding-right: 0.25rem;">Subtitles</div><input type="checkbox" value="1" checked></li>';
+        }
+        tabs += '</ul>';
     }
+    tabs += '</div>';
+    $('body').append(tabs);
+
+    // set up the subtitle switch
+    var subsRegion = getRegion('netflix-subs');
+    var subs = false;
+    if (subsRegion === 'us') {
+        subs = true;
+    }
+    $('#subs input[type=checkbox]').attr('checked', subs);
+    $('#subs input[type=checkbox]').change(function() {
+        var region = 'XX';
+        if (this.checked) {
+            region = 'US';
+        }
+        var service = 'netflix-subs';
+        // don't check what it is, just assume it's changing
+        setRegion(service, region);
+    });
+
+
+    // set the width of the body
+    var columns = $('.region-list').css('-webkit-column-count');
+    $('body').width((10 * columns) + 'rem');
+
+    // set handler for service change
+    $('.services').change(function() {
+        var code = this.value
+        switchTab(code);
+    });
+
+    // set handler for region selection
+    $('.region-list li:not(#subs)').click(function() {
+        var region = $(this).attr('id').toUpperCase();
+        var service = $(this).parent().attr('id');
+        var currRegion = getRegion(service);
+
+        if (currRegion !== region) {
+            $(this).children('.flag').addClass('spinner');
+            setRegion(service, region);
+        }
+
+    });
+
+    // start by switching to the first tab
+    switchTab(services[0].code);
 }
 
-// switches to a new tab
 function switchTab(newTab) {
-    $('.tabs li').each(function() {
-        if ($(this).attr('id') === newTab) {
-            $(this).addClass('active-tab');
-        } else {
-            $(this).removeClass('active-tab');
-        }
-    });
+    // make the right region list visible
     $('.region-list').each(function() {
         if ($(this).attr('id') === newTab) {
             $(this).addClass('active-list');
@@ -73,11 +137,13 @@ function switchTab(newTab) {
         }
     });
 
+    // set the current region to be selected
     var currRegion = getRegion(newTab);
     boldRegion(newTab, currRegion);
 
-    $('body').height($('.tabs-wrapper').height());
-    $('html').height($('.tabs-wrapper').height());
+    // set the popup's height
+    $('body').height($('.content-wrapper').height());
+    $('html').height($('.content-wrapper').height());
 }
 
 // Find the current region of a particular service
@@ -106,6 +172,7 @@ function getRegion(service) {
 // Set the region of a particular service
 // Returns whether it worked
 function setRegion(service, region) {
+    region = region.toUpperCase();
     var currRegion = getRegion(service, apiKey);
     if (region !== currRegion) {
         $.ajax({
@@ -141,11 +208,8 @@ function setRegion(service, region) {
 }
 
 function boldRegion(service, region) {
-    console.log('bolding');
-    console.log(region);
     $('#' + service + '.region-list li').each(function() {
-        console.log(this);
-        if ($(this).attr('id') === region) {
+        if ($(this).attr('id').toUpperCase() === region) {
             $(this).addClass('active-region');
         } else {
             $(this).removeClass('active-region');
