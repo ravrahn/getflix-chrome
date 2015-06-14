@@ -1,0 +1,106 @@
+{
+    "netflix": {
+        "name": "Netflix",
+        "order": 10,
+        "regions": {
+            "us": ["United States"],
+            "gb": ["United Kingdom"],
+            "ca": ["Canada"],
+            "nl": ["Netherlands"],
+            "cl": ["Chile"],
+            "mx": ["Mexico"],
+            "se": ["Sweden"],
+            "fi": ["Finland"],
+            "br": ["Brazil"],
+            "ie": ["Ireland"],
+            "dk": ["Denmark"],
+            "cr": ["Costa Rica"],
+            "ar": ["Argentina"],
+            "ch": ["Switzerland"],
+            "de": ["Germany"],
+            "fr": ["France"],
+            "at": ["Austria"],
+            "be": ["Belgium"],
+            "au": ["Australia"],
+            "nz": ["New Zealand"],
+            "pa": ["Panama"],
+            "": ["Turn Off"]
+        }
+    },
+    "netflix-subs": {
+        "name": "Netflix Subtitles",
+        "order": 20,
+        "regions": {
+            "us": ["Subtitles On"],
+            "xx": ["Subtitles Off"]
+        }
+    },
+    "wdtv": {
+        "name": "WD TV Devices",
+        "order": 50,
+        "regions": {
+            "us": ["USA Channels"],
+            "gb": ["UK Channels"],
+            "au": ["Australian Channels"]
+        }
+    },
+    "brightcove": {
+        "name": "Channel Group B",
+        "order": 80,
+        "regions": {
+            "us": ["Smithsonian Channel", "Showtime Anytime", "AMC", "Acorn TV", "V8 SuperView", "beIN Sports Connect (USA)"],
+            "gb": ["Demand 5", "UKTV", "Al Jazeera English"],
+            "au": ["PLUS7", "Jump-in", "TenPlay"],
+            "nz": ["TVNZ"],
+            "ie": ["TG4"],
+            "in": ["Sony Liv"]
+        }
+    },
+    "theplatform": {
+        "name": "Channel Group A",
+        "order": 70,
+        "regions": {
+            "us": ["CBS", "NBC", "CNBC", "FOX Now", "FX Networks", "Disney Movies Anywhere", "The History Channel", "A&E", "Syfy", "National Geographic", "Food Network", "Sprout Now"],
+            "ca": ["CBC", "Global TV"],
+            "au": ["SBS On Demand"],
+            "nz": ["Prime (Sky)"]
+        }
+    },
+    "performgroup": {
+        "name": "Channel Group C",
+        "order": 90,
+        "regions": {
+            "us": ["Fox Soccer 2Go"],
+            "sa": ["beIN Sports AR", "beIN Sports EN"],
+            "au": ["Setanta Australia"],
+            "nl": ["Livesport (Rugby)", "Livesport (J-League)"]
+        }
+    },
+    "sony": {
+        "name": "Sony Devices",
+        "order": 60,
+        "regions": {
+            "us": ["USA Channels"],
+            "gb": ["UK Channels"],
+            "au": ["Australian Channels"]
+        }
+    },
+    "prime": {
+        "name": "Amazon Prime",
+        "order": 30,
+        "regions": {
+            "us": ["United States"],
+            "gb": ["United Kingdom"],
+            "de": ["Germany"]
+        }
+    },
+    "crackle": {
+        "name": "Crackle",
+        "order": 40,
+        "regions": {
+            "us": ["United States"],
+            "au": ["Australia"],
+            "ca": ["Canada"]
+        }
+    }
+}

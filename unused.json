@@ -1,0 +1,67 @@
+
+    {
+        "name": "Group A",
+        "code": "theplatform",
+        "regions": [
+            {
+                "name": "Australia",
+                "code": "AU"
+            },
+            {
+                "name": "Canada",
+                "code": "CA"
+            },
+            {
+                "name": "New Zealand",
+                "code": "NZ"
+            },
+            {
+                "name": "United States",
+                "code": "US"
+            }
+        ]
+    },
+    {
+        "name": "Group B",
+        "code": "brightcove",
+        "regions": [
+            {
+                "name": "Australia",
+                "code": "AU"
+            },
+            {
+                "name": "New Zealand",
+                "code": "NZ"
+            },
+            {
+                "name": "United Kingdom",
+                "code": "UK"
+            },
+            {
+                "name": "United States",
+                "code": "US"
+            }
+        ]
+    },
+    {
+        "name": "Group C",
+        "code": "performgroup",
+        "regions": [
+            {
+                "name": "Australia",
+                "code": "AU"
+            },
+            {
+                "name": "Netherlands",
+                "code": "NL"
+            },
+            {
+                "name": "Saudi Arabia",
+                "code": "SA"
+            },
+            {
+                "name": "United States",
+                "code": "US"
+            }
+        ]
+    }

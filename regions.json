@@ -1,0 +1,237 @@
+[
+    {
+        "name": "Netflix",
+        "code": "netflix",
+        "url": "http://www.netflix.com/",
+        "regions": [
+            {
+                "name": "Argentina",
+                "code": "AR"
+            },
+            {
+                "name": "Australia",
+                "code": "AU"
+            },
+            {
+                "name": "Austria",
+                "code": "AT"
+            },
+            {
+                "name": "Belgium",
+                "code": "BE"
+            },
+            {
+                "name": "Brazil",
+                "code": "BR"
+            },
+            {
+                "name": "Canada",
+                "code": "CA"
+            },
+            {
+                "name": "Chile",
+                "code": "CL"
+            },
+            {
+                "name": "Costa Rica",
+                "code": "CR"
+            },
+            {
+                "name": "Denmark",
+                "code": "DK"
+            },
+            {
+                "name": "Finland",
+                "code": "FI"
+            },
+            {
+                "name": "France",
+                "code": "FR"
+            },
+            {
+                "name": "Germany",
+                "code": "DE"
+            },
+            {
+                "name": "Ireland",
+                "code": "IE"
+            },
+            {
+                "name": "Mexico",
+                "code": "MX"
+            },
+            {
+                "name": "Netherlands",
+                "code": "NL"
+            },
+            {
+                "name": "New Zealand",
+                "code": "NZ"
+            },
+            {
+                "name": "Panama",
+                "code": "PA"
+            },
+            {
+                "name": "Sweden",
+                "code": "SE"
+            },
+            {
+                "name": "Switzerland",
+                "code": "CH"
+            },
+            {
+                "name": "United Kingdom",
+                "code": "GB"
+            },
+            {
+                "name": "United States",
+                "code": "US"
+            }
+        ]
+    },
+    {
+        "name": "Amazon Prime",
+        "code": "prime",
+        "url": "https://prime.amazon.com/",
+        "regions": [
+            {
+                "name": "Germany",
+                "code": "DE"
+            },
+            {
+                "name": "United Kingdom",
+                "code": "GB"
+            },
+            {
+                "name": "United States",
+                "code": "US"
+            }
+        ]
+    },
+    {
+        "name": "Crackle (beta)",
+        "code": "crackle",
+        "url": "https://www.crackle.com/",
+        "regions": [
+            {
+                "name": "Australia",
+                "code": "AU"
+            },
+            {
+                "name": "United States",
+                "code": "US"
+            }
+        ]
+    },
+    {
+        "name": "WD TV Live",
+        "code": "wdtv",
+        "regions": [
+            {
+                "name": "Australia",
+                "code": "AU"
+            },
+            {
+                "name": "United Kingdom",
+                "code": "GB"
+            },
+            {
+                "name": "United States",
+                "code": "US"
+            }
+        ]
+    },
+    {
+        "name": "Sony TVs",
+        "code": "sony",
+        "regions": [
+            {
+                "name": "Australia",
+                "code": "AU"
+            },
+            {
+                "name": "United Kingdom",
+                "code": "GB"
+            },
+            {
+                "name": "United States",
+                "code": "US"
+            }
+        ]
+    },
+    {
+        "name": "Group A",
+        "code": "theplatform",
+        "regions": [
+            {
+                "name": "Australia",
+                "code": "AU"
+            },
+            {
+                "name": "Canada",
+                "code": "CA"
+            },
+            {
+                "name": "New Zealand",
+                "code": "NZ"
+            },
+            {
+                "name": "United States",
+                "code": "US"
+            }
+        ]
+    },
+    {
+        "name": "Group B",
+        "code": "brightcove",
+        "regions": [
+            {
+                "name": "Australia",
+                "code": "AU"
+            },
+            {
+                "name": "India",
+                "code": "IN"
+            },
+            {
+                "name": "Ireland",
+                "code": "IE"
+            },
+            {
+                "name": "New Zealand",
+                "code": "NZ"
+            },
+            {
+                "name": "United Kingdom",
+                "code": "GB"
+            },
+            {
+                "name": "United States",
+                "code": "US"
+            }
+        ]
+    },
+    {
+        "name": "Group C",
+        "code": "performgroup",
+        "regions": [
+            {
+                "name": "Australia",
+                "code": "AU"
+            },
+            {
+                "name": "Netherlands",
+                "code": "NL"
+            },
+            {
+                "name": "Saudi Arabia",
+                "code": "SA"
+            },
+            {
+                "name": "United States",
+                "code": "US"
+            }
+        ]
+    }
+]

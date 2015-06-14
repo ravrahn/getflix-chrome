@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+
+    "name": "Getflix",
+    "description": "Check and change Getflix regions quickly and easily.",
+    "version": "0.6",
+
+    "permissions": [
+        "https://*.getflix.com.au/",
+        "http://*.netflix.com/",
+        "tabs"
+    ],
+
+    "browser_action": {
+        "default_icon": "/img/browser_icon.png",
+        "default_popup": "popup.html"
+    },
+
+    "icons": {
+        "48": "/img/icon48.png",
+        "64": "/img/icon64.png",
+        "128": "/img/icon128.png",
+        "512": "/img/icon512.png"
+    }
+}
