@@ -16,73 +16,44 @@ function getUserProfile() {
 
 // Use json given as the regions parameter to create the region-switching UI
 function generateTabs(regions) {
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4) {
-            var regions = JSON.parse(xhr.responseText);
-
-            var tabs = '<div class="tabs-container"><ul class="tabs">';
-
-            for (var i = 0; i < regions.length; i++) {
-                tabs += '<li id="' + regions[i].code + '">' + regions[i].name + '</li>';
-            }
-
-            tabs += '</ul></div>\n<div class="content-wrapper">';
-
-            for (var i = 0; i < regions.length; i++) {
-                tabs += '<ul id="' + regions[i].code + '" class="region-list f16" role="option">';
-
-                for (var j = 0; j < regions[i].regions.length; j++) {
-                    tabs += '<li id="' + regions[i].regions[j].code + '"><div class="flag ' + regions[i].regions[j].code.toLowerCase() + '"></div>' + regions[i].regions[j].name + '</li>';
-                }
-
-                tabs += '</ul>';
-            }
-
-            tabs += '</div>';
-
-            $('body').append(tabs);
-
-            var columns = Math.ceil((regions.length / 3));
-
-            $('body').width((10 * columns) + 'rem');
-            $('.region-list').css('-webkit-column-count', columns + '');
-
-            // move the tabs with the cursor to account for the fact that they're wider than the screen
-            $('.tabs-container').mousemove(function(e) {
-                var offset = $(this).offset();
-                var posRatio = (e.pageX - offset.left) / $(this).width();
-                var maxShift = $('.tabs').width() - $(this).width();
-                $('.tabs').css('margin-left', -maxShift * posRatio);
-            });
-
-            // when a tab is clicked on, switch to it
-            // for (var i=0; i < regions.length; i++) {
-            // $('.tabs #' + regions[i].code).click(function() {
-            $('.tabs li').click(function() {
-                var code = $(this).attr('id')
-                switchTab(code);
-            });
-            // }
-
-            $('.region-list li').click(function() {
-                var region = $(this).attr('id');
-                var service = $(this).parent().attr('id');
-                var currRegion = getRegion(service);
-
-                if (currRegion !== region) {
-                    $(this).children('.flag').addClass('spinner');
-                    setRegion(service, region);
-                }
-
-            });
-
-            switchTab('netflix');
-
+    // Fetch the JSON regions list
+    var services = '';
+    $.ajax({
+        type: 'GET',
+        url: 'https://www.getflix.com.au/api/v1/regions/list.json',
+        username: apiKey,
+        password: 'x',
+        async: false,
+        success: function(data) {
+            services = data;
         }
+    });
+
+    // we're gonna set this up later, inside the netflix tab
+    delete services["netflix-subs"];
+
+    // for every service, add a dropdown option
+    for (var code in services) {
+        var service = services[code];
+        console.log(service);
     }
-    xhr.open('GET', chrome.extension.getURL('/regions.json'), true);
-    xhr.send();
+    // for every region in every service, add a list option w/ flag
+    for (var code in services) {
+        var service = services[code];
+        var regions = service.regions;
+        console.log(service.name);
+        for (var regionCode in regions) {
+            var region = regions[regionCode];
+            // get the country name from the list in countries.js
+            // because lots of web requests would be awful
+            region.country = countries[regionCode];
+            if (region.country == undefined) {
+                region.country = "Turn Off";
+            }
+            console.log(region.country);
+        }
+        console.log("");
+    }
 }
 
 // switches to a new tab
