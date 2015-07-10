@@ -55,7 +55,7 @@ function generateTabs(regions) {
         var service = services[i];
         tabs += '<option value="' + service.code + '">' + service.name + '</option>';
     }
-    tabs += '</select></div>\n<div class="content-wrapper">';
+    tabs += '</select></div><div class="content-wrapper">';
 
     var columns = 3;
     // for every region in every service, add a list option w/ flag
@@ -63,17 +63,20 @@ function generateTabs(regions) {
         var service = services[i];
         var regions = service.regions;
 
+        delete regions[''];
+
         tabs += '<table id="' + service.code + '" class="region-list f16" role="option"><tbody>';
 
         var count = 0;
         for (var code in regions) {
             var region = regions[code];
-            // get the country name from the list in countries.js
-            // because lots of web requests would be awful
+
+            // get the country name from the hard-coded list in countries.js
+            // otherwise we'd need to get them from Wikipedia or something
             region.country = countries[code];
-            if (region.country === undefined) {
-                region.country = "Turn Off";
-            }
+            // if (region.country === undefined) {
+            //     region.country = 'Turn Off';
+            // }
 
             if (count % columns === 0) {
                 tabs += '<tr>';
@@ -91,7 +94,7 @@ function generateTabs(regions) {
             if (count % columns === 0) {
                 tabs += '<tr>'; // add a row, ours is full
             }
-            tabs += '<td id="subs"><input type="checkbox" class="flag" value="1" checked ><div>Subtitles</div></td>';
+            tabs += '<td id="subs"><div class="blocker"></div><input type="checkbox" class="flag" value="1" checked ><div class="label">Subtitles</div></td>';
             tabs += '</tr>';
         } else if (count % columns !== 0) {
             tabs += '</tr>';
@@ -101,6 +104,15 @@ function generateTabs(regions) {
     tabs += '</div>';
 
     $('body').append(tabs);
+
+    // So, for some reason, it seems like the first time
+    // one of these handlers gets added, it gets triggered.
+    // But only the FIRST time, so we're doing it first here
+    // where it can't be seen. This avoids a janky transition
+    // when a user actually clicks one of the buttons.
+    $('.junk').on('webkitAnimationIteration', function() {
+        $(this).removeClass('spinner');
+    });
 
     // set up the subtitle switch
     var subsRegion = getRegion('netflix-subs');
@@ -143,11 +155,15 @@ function generateTabs(regions) {
         var currRegion = getRegion(service);
 
         if (currRegion !== region) {
+            $(this).addClass('switcher');
             $(this).children('.flag').addClass('spinner');
             setRegion(service, region);
         }
 
     });
+    $('#subs').click(function() {
+        $('#subs input').click();
+    })
 
     // start by switching to the first tab
     switchTab(services[0].code);
@@ -214,9 +230,16 @@ function setRegion(service, region) {
             }),
             success: function(data) {
                 if (service === 'netflix-subs') {
-                    $('#subs input').removeClass('spinner');
+                    $('#subs input').on('webkitAnimationIteration', function() {
+                        $(this).removeClass('spinner');
+                        $(this).off('webkitAnimationIteration');
+                    });
                 } else {
-                    $('#' + service + '.region-list tr #' + region).children('.flag').removeClass('spinner');
+                    $('#' + service + '.region-list tr #' + region).removeClass('switcher');
+                    $('#' + service + '.region-list tr #' + region).children('.flag').on('webkitAnimationIteration', function() {
+                        $(this).removeClass('spinner');
+                        $(this).off('webkitAnimationIteration');
+                    });
                     boldRegion(service, region);
                 }
 
