@@ -49,20 +49,23 @@ function generateTabs(regions) {
     });
 
     // generate the html
-    var tabs = '<div class="services-container"><select class="services" name="services">';
+    var tabs = '<div class="services-container"><h1>Netflix</h1><select class="services" name="services">';
     // for every service, add a dropdown option
     for (var i = 0; i < services.length; i++) {
         var service = services[i];
         tabs += '<option value="' + service.code + '">' + service.name + '</option>';
     }
     tabs += '</select></div>\n<div class="content-wrapper">';
+
+    var columns = 3;
     // for every region in every service, add a list option w/ flag
     for (var i = 0; i < services.length; i++) {
         var service = services[i];
         var regions = service.regions;
 
-        tabs += '<ul id="' + service.code + '" class="region-list f16" role="option">';
+        tabs += '<table id="' + service.code + '" class="region-list f16" role="option"><tbody>';
 
+        var count = 0;
         for (var code in regions) {
             var region = regions[code];
             // get the country name from the list in countries.js
@@ -71,49 +74,72 @@ function generateTabs(regions) {
             if (region.country === undefined) {
                 region.country = "Turn Off";
             }
-            tabs += '<li id="' + code + '"><div class="flag ' + code + '"></div>' + region.country + '</li>';
+
+            if (count % columns === 0) {
+                tabs += '<tr>';
+            }
+
+            tabs += '<td id="' + code + '"><div class="flag ' + code + '"></div>' + region.country + '</td>';
+            
+            if (count % columns === columns-1) {
+                tabs += '</tr>'
+            }
+            count++;
         }
         // add the subtitle switch
         if (service.code === 'netflix') {
-            tabs += '<li id="subs"><div style="float: left; padding-right: 0.25rem;">Subtitles</div><input type="checkbox" value="1" checked></li>';
+            if (count % columns === 0) {
+                tabs += '<tr>'; // add a row, ours is full
+            }
+            tabs += '<td id="subs"><input type="checkbox" class="flag" value="1" checked ><div>Subtitles</div></td>';
+            tabs += '</tr>';
+        } else if (count % columns !== 0) {
+            tabs += '</tr>';
         }
-        tabs += '</ul>';
+        tabs += '</tbody></table>';
     }
     tabs += '</div>';
+
     $('body').append(tabs);
 
     // set up the subtitle switch
     var subsRegion = getRegion('netflix-subs');
     var subs = false;
-    if (subsRegion === 'us') {
+    if (subsRegion.toUpperCase() === 'US') { // just in CASE
         subs = true;
     }
-    $('#subs input[type=checkbox]').attr('checked', subs);
-    $('#subs input[type=checkbox]').change(function() {
+    $('#subs input').attr('checked', subs);
+    $('#subs input').change(function() {
         var region = 'XX';
         if (this.checked) {
             region = 'US';
         }
         var service = 'netflix-subs';
         // don't check what it is, just assume it's changing
+        $(this).addClass('spinner');
         setRegion(service, region);
     });
 
-
     // set the width of the body
-    var columns = $('.region-list').css('-webkit-column-count');
     $('body').width((10 * columns) + 'rem');
 
     // set handler for service change
     $('.services').change(function() {
         var code = this.value
+        var name = '';
+        for (var i = 0; i < services.length; i++) {
+            if (services[i].code === code) {
+                name = services[i].name;
+            }
+        }
+        $('h1').html(name);
         switchTab(code);
     });
 
     // set handler for region selection
-    $('.region-list li:not(#subs)').click(function() {
+    $('.region-list td:not(#subs)').click(function() {
         var region = $(this).attr('id').toUpperCase();
-        var service = $(this).parent().attr('id');
+        var service = $(this).parent().parent().parent().attr('id');
         var currRegion = getRegion(service);
 
         if (currRegion !== region) {
@@ -187,8 +213,12 @@ function setRegion(service, region) {
                 "region": region
             }),
             success: function(data) {
-                $('#' + service + '.region-list #' + region).children('.flag').removeClass('spinner');
-                boldRegion(service, region);
+                if (service === 'netflix-subs') {
+                    $('#subs input').removeClass('spinner');
+                } else {
+                    $('#' + service + '.region-list tr #' + region).children('.flag').removeClass('spinner');
+                    boldRegion(service, region);
+                }
 
                 // Refresh Netflix if it's the current tab
                 chrome.tabs.query({
@@ -208,7 +238,7 @@ function setRegion(service, region) {
 }
 
 function boldRegion(service, region) {
-    $('#' + service + '.region-list li').each(function() {
+    $('#' + service + '.region-list td').each(function() {
         if ($(this).attr('id').toUpperCase() === region) {
             $(this).addClass('active-region');
         } else {
