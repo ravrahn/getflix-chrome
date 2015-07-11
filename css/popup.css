@@ -41,7 +41,7 @@ body {
     top: 0.25rem;
     left: 0.25rem;
     padding: 0.25rem;
-    border: none;
+    border: 1px solid rgba(0,0,0,0);
     border-radius: 0.25rem;
     background: url('chrome-extension://__MSG_@@extension_id__/img/arrow.png') no-repeat right transparent;
     background-size: 16px;
@@ -49,6 +49,10 @@ body {
     width: 15rem;
     height: 2.5rem;
     position: absolute;
+}
+
+.services-container select:focus {
+	outline: 0;
 }
 
 .region-list:not(.active-list) {
