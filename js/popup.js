@@ -1,5 +1,7 @@
 // FUNCTIONS
 
+error = 'Service test failed.<br ><a href="https://www.getflix.com.au/login">Click here</a> to log in.<br >If you are logged in, <a href="https://www.getflix.com.au/setup/overview" target="_blank">click here</a> for setup information or check your internet connection.';
+
 // Use the API to get an active user profile if one exists (ie, if someone is logged on)
 function getUserProfile() {
     var profile;
@@ -278,6 +280,10 @@ function boldRegion(service, region) {
 // MAIN
 
 var profile = getUserProfile();
+if (typeof profile === 'undefined') {
+    $('.dns').html(error);
+
+}
 var apiKey = profile.api_key;
 
 // Check DNS. If true, load tabs from the JSON.
@@ -294,6 +300,6 @@ $.getJSON('https://check.getflix.com.au/?format=json', function(data) {
         }, 250);
     } else { // dns returned false
         // report failure, link to help
-        $('.dns').html('Service test failed.<br ><a href="https://www.getflix.com.au/login">Click here</a> to log in.<br >If you are logged in, <a href="https://www.getflix.com.au/setup/overview" target="_blank">click here</a> for setup information.');
+        $('.dns').html(error);
     }
 });
