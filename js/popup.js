@@ -1,21 +1,5 @@
 // FUNCTIONS
 
-error = 'Service test failed.<br ><a href="https://www.getflix.com.au/login">Click here</a> to log in.<br >If you are logged in, <a href="https://www.getflix.com.au/setup/overview" target="_blank">click here</a> for setup information or check your internet connection.';
-
-// Use the API to get an active user profile if one exists (ie, if someone is logged on)
-function getUserProfile() {
-    var profile;
-    $.ajax({
-        type: 'GET',
-        url: 'https://www.getflix.com.au/api/v1/profile.json',
-        async: false,
-        success: function(data) {
-            profile = data;
-        }
-    });
-    return profile;
-}
-
 // Use json given as the regions parameter to create the region-switching UI
 function generateTabs(regions) {
     // Fetch the JSON regions list
@@ -279,27 +263,38 @@ function boldRegion(service, region) {
 
 // MAIN
 
-var profile = getUserProfile();
-if (typeof profile === 'undefined') {
-    $('.dns').html(error);
+test_failed = 'Service test failed.<br ><a href="https://www.getflix.com.au/login">Click here</a> to log in.<br >If you are logged in, <a href="https://www.getflix.com.au/setup/overview" target="_blank">click here</a> for setup information or check your internet connection.';
 
-}
-var apiKey = profile.api_key;
+var apiKey;
 
-// Check DNS. If true, load tabs from the JSON.
-$.getJSON('https://check.getflix.com.au/?format=json', function(data) {
-    if (data.dns) { // dns returned true
-        // report success
-        $('.dns').html('Service test passed!');
-        // wait a bit, and then generate the tabs
-        setTimeout(function() {
-            $('.dns').remove();
+// Use the API to get an active user profile if one exists (ie, if someone is logged on)
+$.ajax({
+    type: 'GET',
+    url: 'https://www.getflix.com.au/api/v1/profile.json',
+    // async: false,
+    success: function(data) {
+        var profile = data;
+        apiKey = profile.api_key;
 
-            generateTabs();
+        // Check DNS. If true, load tabs from the JSON.
+        $.getJSON('https://check.getflix.com.au/?format=json', function(data) {
+            if (data.dns) { // dns returned true
+                // report success
+                $('.dns').html('Service test passed!');
+                // wait a bit, and then generate the tabs
+                setTimeout(function() {
+                    $('.dns').remove();
 
-        }, 250);
-    } else { // dns returned false
-        // report failure, link to help
-        $('.dns').html(error);
+                    generateTabs();
+
+                }, 250);
+            } else { // dns returned false
+                // report failure, link to help
+                $('.dns').html(test_failed);
+            }
+        });
+    },
+    error: function() {
+        $('.dns').html(test_failed);
     }
 });
