@@ -50,7 +50,7 @@ function generateTabs(regions) {
 
         delete regions[''];
 
-        tabs += '<table id="' + service.code + '" class="region-list f16" role="option"><tbody>';
+        tabs += '<table id="' + service.code + '" class="region-list" role="option"><tbody>';
 
         var count = 0;
         for (var code in regions) {

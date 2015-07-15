@@ -59,7 +59,7 @@ body {
     padding: 0.25rem;
     border: 1px solid rgba(0,0,0,0);
     border-radius: 0.25rem;
-    background: url('chrome-extension://__MSG_@@extension_id__/img/arrow.png') no-repeat right transparent;
+    background: url('../img/arrow.png') no-repeat right transparent;
     background-size: 16px;
     width: 15rem;
     height: 2.5rem;
@@ -128,8 +128,6 @@ body {
 }
 
 .spinner {
-	width: 16px;
-	height: 11px;
 	background-color: #333;
 	-webkit-animation: rotateplane 2s infinite ease-in-out;
 }
