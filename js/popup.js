@@ -35,13 +35,13 @@ function generateTabs(regions) {
     });
 
     // generate the html
-    var tabs = '<div class="services-container"><h1>Netflix</h1><select class="services" name="services">';
+    var tabs = '<div class="services-container"><div class="services-dropdown"><img class="logo" src="/img/icon128.png" /><select class="services" name="services">';
     // for every service, add a dropdown option
     for (var i = 0; i < services.length; i++) {
         var service = services[i];
         tabs += '<option value="' + service.code + '">' + service.name + '</option>';
     }
-    tabs += '</select></div><div class="content-wrapper">';
+    tabs += '</select><h1>Netflix</h1></div></div><div class="content-wrapper">';
 
     var columns = 3;
     // for every region in every service, add a list option w/ flag
@@ -271,7 +271,6 @@ var apiKey;
 $.ajax({
     type: 'GET',
     url: 'https://www.getflix.com.au/api/v1/profile.json',
-    // async: false,
     success: function(data) {
         var profile = data;
         apiKey = profile.api_key;
@@ -283,10 +282,9 @@ $.ajax({
                 $('.dns').html('Service test passed!');
                 // wait a bit, and then generate the tabs
                 setTimeout(function() {
+                    $('.logo').remove();
                     $('.dns').remove();
-
                     generateTabs();
-
                 }, 250);
             } else { // dns returned false
                 // report failure, link to help
