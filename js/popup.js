@@ -15,10 +15,9 @@ function generateTabs(regions) {
         }
     });
 
+    // we're gonna set this up later, inside the netflix tab
     var netflixSubs = services['netflix-subs'];
     netflixSubs.code = 'netflix-subs';
-
-    // we're gonna set this up later, inside the netflix tab
     delete services['netflix-subs'];
 
     // sort services by order:
@@ -35,7 +34,7 @@ function generateTabs(regions) {
     });
 
     // generate the html
-    var tabs = '<div class="services-container"><div class="services-dropdown"><img class="logo" src="/img/icon128.png" /><select class="services" name="services">';
+    var tabs = '<div class="services-container"><div class="services-dropdown"><img class="logo" src="/img/icon128.png"><select class="services" name="services">';
     // for every service, add a dropdown option
     for (var i = 0; i < services.length; i++) {
         var service = services[i];
@@ -257,13 +256,19 @@ function boldRegion(service, region) {
 }
 
 
-// 1. check dns
-// 2. create tabs
-// 3. hide other tabs content
-
 // MAIN
 
-test_failed = 'Service test failed.<br ><a href="https://www.getflix.com.au/login">Click here</a> to log in.<br >If you are logged in, <a href="https://www.getflix.com.au/setup/overview" target="_blank">click here</a> for setup information or check your internet connection.';
+failure = '<img class="logo" src="/img/icon128.png">';
+failure += '<div class="dns">Service test failed.</div>';
+
+login_failed = failure;
+login_failed += '<div class="fail-message" >To use this extension, you must be logged in to Getflix in this browser.<br><a href="https://www.getflix.com.au/login" target="_blank">Click here</a> to log in.</div>';
+
+net_failed = failure;
+net_failed += '<div class="fail-message" >Please check your internet connection.</div>';
+
+dns_failed = failure;
+dns_failed += '<div class="fail-message" >Getflix is not enabled on your device or network.<br><a href="https://www.getflix.com.au/setup/overview" target="_blank">Click here</a> for setup details.</div>';
 
 var apiKey;
 
@@ -288,11 +293,19 @@ $.ajax({
                 }, 250);
             } else { // dns returned false
                 // report failure, link to help
-                $('.dns').html(test_failed);
+                $('body').width('16rem');
+                $('body').html(dns_failed);
             }
         });
     },
+    statusCode: {
+        401:function() {
+            $('body').width('16rem');
+            $('body').html(login_failed);
+        }
+    },
     error: function() {
-        $('.dns').html(test_failed);
+        $('body').width('16rem');
+        $('body').html(net_failed);
     }
 });

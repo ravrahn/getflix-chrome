@@ -10,12 +10,18 @@ body {
 	width: 2.25rem;
 	margin: 0.125rem;
 	margin-right: 0;
+	margin-bottom: 0;
 	float: left;
 }
 
 .dns {
 	margin: 0.75rem 0.5rem;
 	width: 10rem;
+	float: left;
+}
+
+.fail-message {
+	margin: 0.5rem 0.75rem;
 	float: left;
 }
 
