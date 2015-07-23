@@ -3,7 +3,7 @@
 
     "name": "Getflix",
     "description": "Check and change Getflix regions quickly and easily.",
-    "version": "0.8.8",
+    "version": "0.9.1",
 
     "permissions": [
         "https://*.getflix.com.au/",
@@ -17,9 +17,6 @@
     },
 
     "icons": {
-        "48": "/img/icon48.png",
-        "64": "/img/icon64.png",
-        "128": "/img/icon128.png",
-        "512": "/img/icon512.png"
+        "128": "/img/icon128.png"
     }
 }
