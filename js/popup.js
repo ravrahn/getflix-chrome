@@ -262,13 +262,13 @@ failure = '<img class="logo" src="/img/icon128.png">';
 failure += '<div class="dns">Service test failed.</div>';
 
 login_failed = failure;
-login_failed += '<div class="fail-message" >To use this extension, you must be logged in to Getflix in this browser.<br><a href="https://www.getflix.com.au/login" target="_blank">Click here</a> to log in.</div>';
+login_failed += '<div class="fail-message" >To use this extension, you must be logged in to Getflix in this browser.</div><div class="button-container"><a class="fail-button" href="https://www.getflix.com.au/login" target="_blank">Click here to log in.</a></div>';
 
 net_failed = failure;
 net_failed += '<div class="fail-message" >Please check your internet connection.</div>';
 
 dns_failed = failure;
-dns_failed += '<div class="fail-message" >Getflix is not enabled on your device or network.<br><a href="https://www.getflix.com.au/setup/overview" target="_blank">Click here</a> for setup details.</div>';
+dns_failed += '<div class="fail-message" >Getflix is not enabled on your device or network.</div><div class="button-container"><a class="fail-button" href="https://www.getflix.com.au/setup/overview" target="_blank">Click here for setup details.</a></div>';
 
 var apiKey;
 
