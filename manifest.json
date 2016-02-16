@@ -4,7 +4,7 @@
     "name": "Getflix Region Switcher",
     "short_name": "Getflix",
     "description": "Check and change your Getflix region quickly and easily.",
-    "version": "1.0.0",
+    "version": "1.0.1",
 
     "permissions": [
         "https://*.getflix.com.au/",
