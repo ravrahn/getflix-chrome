@@ -246,8 +246,16 @@ var countries = {
     'zm': 'Zambia',
     'zw': 'Zimbabwe',
 
+    // Custom country codes used by Getflix
+
     'u1': 'US Central 1',
     'u2': 'US Central 2',
     'u3': 'US East 1',
     'u4': 'US East 2',
+    'u6': 'US East',
+    'u7': 'US West',
+    'u0': 'US Test 1',
+    'u5': 'US Test 2',
+
+    'g0': 'UK Test 1',
 };

@@ -5,6 +5,7 @@
     vertical-align:text-top;
     margin: 0 8px 0 8px;
 }
+
 .af { background: url('../img/flags/AF.png') no-repeat; background-size: 16px;}
 .ax { background: url('../img/flags/AX.png') no-repeat; background-size: 16px;}
 .al { background: url('../img/flags/AL.png') no-repeat; background-size: 16px;}
@@ -251,3 +252,16 @@
 .ye { background: url('../img/flags/YE.png') no-repeat; background-size: 16px;}
 .zm { background: url('../img/flags/ZM.png') no-repeat; background-size: 16px;}
 .zw { background: url('../img/flags/ZW.png') no-repeat; background-size: 16px;}
+
+/* Custom country codes used by Getflix */
+
+.g0 { background: url('../img/flags/GB.png') no-repeat; background-size: 16px;}
+
+.u0 { background: url('../img/flags/US.png') no-repeat; background-size: 16px;}
+.u1 { background: url('../img/flags/US.png') no-repeat; background-size: 16px;}
+.u2 { background: url('../img/flags/US.png') no-repeat; background-size: 16px;}
+.u3 { background: url('../img/flags/US.png') no-repeat; background-size: 16px;}
+.u4 { background: url('../img/flags/US.png') no-repeat; background-size: 16px;}
+.u5 { background: url('../img/flags/US.png') no-repeat; background-size: 16px;}
+.u6 { background: url('../img/flags/US.png') no-repeat; background-size: 16px;}
+.u7 { background: url('../img/flags/US.png') no-repeat; background-size: 16px;}
