@@ -74,8 +74,9 @@ function generateTabs(regions) {
             }
             count++;
         }
-        // add the subtitle switch
+        // add the Turn Off option and subtitle switch
         if (service.code === 'netflix') {
+            tabs += '<td id="off"><div class="flag"></div>Turn Off</td>';
             if (count % columns === 0) {
                 tabs += '<tr>'; // add a row, ours is full
             }
@@ -193,7 +194,7 @@ function getRegion(service) {
             }
         }
     });
-    return region;
+    return (region ? region : "OFF");
 }
 
 // Set the region of a particular service
@@ -211,7 +212,7 @@ function setRegion(service, region) {
             password: 'x',
             data: JSON.stringify({
                 "service": service,
-                "region": region
+                "region": (region === 'OFF' ? '' : region)
             }),
             success: function(data) {
                 if (service === 'netflix-subs') {
@@ -228,12 +229,12 @@ function setRegion(service, region) {
                     boldRegion(service, region);
                 }
 
-                // Refresh Netflix if it's the current tab
+                // Refresh Netflix or Getflix if it's the current tab
                 chrome.tabs.query({
                     active: true,
                     currentWindow: true
                 }, function(arrayOfTabs) {
-                    if (arrayOfTabs[0].url.indexOf('netflix.com') > -1) {
+                    if ((arrayOfTabs[0].url.indexOf('netflix.com') > -1) || (arrayOfTabs[0].url.indexOf('getflix.com.au') > -1)) {
                         var code = 'window.location.reload();';
                         chrome.tabs.executeScript(arrayOfTabs[0].id, {
                             code: code

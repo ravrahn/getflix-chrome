@@ -256,6 +256,7 @@ var countries = {
     'u7': 'US West',
     'u0': 'US Test 1',
     'u5': 'US Test 2',
+    'u100': 'US 100',
 
     'g0': 'UK Test 1',
 };
