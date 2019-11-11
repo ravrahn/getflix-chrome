@@ -77,7 +77,6 @@ function generateTabs(regions) {
         // add the Turn Off option and subtitle switch
         if (service.code === 'netflix') {
             tabs += '<td id="off"><div class="flag"></div>Turn Off</td>';
-
             if (count % columns === 0) {
                 tabs += '<tr>'; // add a row, ours is full
             }
